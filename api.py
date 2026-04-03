@@ -1,16 +1,14 @@
 from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
 import joblib
 
 app = FastAPI()
 
+# Load trained model
 model = joblib.load("risk_model.pkl")
 
-# 👇 Redirect to docs
 @app.get("/")
-def redirect_to_docs():
-    return RedirectResponse(url="/docs")
-
+def home():
+    return {"message": "Risk API is running"}
 
 @app.post("/predict-risk")
 def predict_risk(data: dict):
